@@ -14,9 +14,11 @@ class UserAuthenticationController extends Controller
         $name = $request->input('name');
         $email = strtolower($request->input('email'));
         $password = $request->input('password');
+        $phone = $request->input('phone');
 
         $user = User::create([
             'name' => $name,
+            'phone' => $phone,
             'email' => $email,
             'password' => Hash::make($password)
         ]);
