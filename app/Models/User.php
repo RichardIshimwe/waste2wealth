@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'workspace_id',
+        'amount'
     ];
 
     /**

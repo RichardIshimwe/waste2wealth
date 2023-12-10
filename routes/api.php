@@ -22,10 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::post('login', [UserAuthenticationController::class, 'login']);
+    Route::put('updateAmount', [UserAuthenticationController::class, 'updateAmount']);
     Route::post('register', [UserAuthenticationController::class, 'register']);
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    Route::get('allUsers', [UserAuthenticationController::class, 'allUsers']);
     Route::post('logout', [UserAuthenticationController::class, 'logout']);
     Route::apiResource('products', ProductsController::class);
 });

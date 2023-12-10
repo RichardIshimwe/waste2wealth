@@ -9,6 +9,41 @@ use App\Models\User;
 class UserAuthenticationController extends Controller
 {
     //
+    public function allUsers()
+    {
+        // return Products::all();
+        $users = User::all();
+
+        return response()->json([
+            'all_users' => $users,
+        ], 200);
+    }
+
+    public function updateAmount(Request $request)
+{
+    $request->validate([
+        'amount' => 'required|numeric',
+    ]);
+    $email = $request->input('email');
+
+    // Find the user by ID
+    $user = User::where('email', $request['email'])->firstOrFail();
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json(['error' => 'User not found', 'email' => $email ], 404);
+    }
+
+    // Update the amount
+    $user->amount = $request->input('amount');
+
+    // Save the changes
+    $user->save();
+
+    return response()->json(['message' => 'User amount updated successfully'], 200);
+}
+
+
     public function register(Request $request)
 {
         $name = $request->input('name');
